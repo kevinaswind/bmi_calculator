@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'constants.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
 import 'constants.dart';
 
-enum Gender {
-  male,
-  female
-}
+enum Gender { male, female }
 
 class InputPage extends StatefulWidget {
   @override
@@ -15,8 +13,8 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-
-Gender selectedGender;
+  Gender selectedGender;
+  int height=180;
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +30,14 @@ Gender selectedGender;
                   Expanded(
                     flex: 1,
                     child: ReusableCard(
-                      onPress: (){
+                      onPress: () {
                         setState(() {
                           selectedGender = Gender.male;
                         });
                       },
-                      colour: selectedGender == Gender.male ? kActiveCardColor : kInactiveCardColor,
+                      colour: selectedGender == Gender.male
+                          ? kActiveCardColor
+                          : kInactiveCardColor,
                       cardChild: (IconContent(
                         icon: FontAwesomeIcons.mars,
                         label: 'MALE',
@@ -46,12 +46,14 @@ Gender selectedGender;
                   ),
                   Expanded(
                     child: ReusableCard(
-                      onPress: (){
+                      onPress: () {
                         setState(() {
                           selectedGender = Gender.female;
                         });
                       },
-                      colour: selectedGender == Gender.female ? kActiveCardColor : kInactiveCardColor,
+                      colour: selectedGender == Gender.female
+                          ? kActiveCardColor
+                          : kInactiveCardColor,
                       cardChild: (IconContent(
                         icon: FontAwesomeIcons.venus,
                         label: 'FEMALE',
@@ -68,18 +70,38 @@ Gender selectedGender;
                     child: ReusableCard(
                       colour: kActiveCardColor,
                       cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
                             'HEIGHT',
                             style: kLabelStyle,
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
                             children: <Widget>[
                               Text(
-                                '180',
+                                height.toString(),
                                 style: kNumberTextStyle,
+                              ),
+                              Text(
+                                'cm',
+                                style: kLabelStyle,
                               )
                             ],
+                          ),
+                          Slider(
+                            value: height.toDouble(),
+                            min: 120.0,
+                            max: 220.0,
+                            activeColor: Color(0xFFEB1555),
+                            inactiveColor: Color(0xFF8D8E98),
+                            onChanged: (double newValue){
+                              setState(() {
+                                height = newValue.round();
+                              });
+                            },
                           )
                         ],
                       ),

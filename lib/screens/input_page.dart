@@ -1,9 +1,12 @@
+import 'package:bmi_calculator/calculator_brain.dart';
+import 'package:bmi_calculator/components/bottom_button.dart';
+import 'package:bmi_calculator/components/round_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'constants.dart';
-import 'icon_content.dart';
-import 'reusable_card.dart';
-import 'constants.dart';
+import '../constants.dart';
+import '../components/icon_content.dart';
+import '../components/reusable_card.dart';
+import 'results_page.dart';
 
 enum Gender { male, female }
 
@@ -22,7 +25,7 @@ class _InputPageState extends State<InputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('BMI CALCULATOR'),
+          title: Text('BMI 计算器'),
         ),
         body: Column(
           children: <Widget>[
@@ -42,7 +45,7 @@ class _InputPageState extends State<InputPage> {
                           : kInactiveCardColor,
                       cardChild: (IconContent(
                         icon: FontAwesomeIcons.mars,
-                        label: 'MALE',
+                        label: '男',
                       )),
                     ),
                   ),
@@ -58,7 +61,7 @@ class _InputPageState extends State<InputPage> {
                           : kInactiveCardColor,
                       cardChild: (IconContent(
                         icon: FontAwesomeIcons.venus,
-                        label: 'FEMALE',
+                        label: '女',
                       )),
                     ),
                   )
@@ -75,7 +78,7 @@ class _InputPageState extends State<InputPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'HEIGHT',
+                            '身高',
                             style: kLabelStyle,
                           ),
                           Row(
@@ -131,7 +134,7 @@ class _InputPageState extends State<InputPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'WEIGHT',
+                            '体重',
                             style: kLabelStyle,
                           ),
                           Text(
@@ -171,7 +174,7 @@ class _InputPageState extends State<InputPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'AGE',
+                            '年龄',
                             style: kLabelStyle,
                           ),
                           Text(
@@ -207,36 +210,16 @@ class _InputPageState extends State<InputPage> {
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 10.0),
-              color: kBottomContainerColor,
-              width: double.infinity,
-              height: kBottomContainerHeight,
-            )
+            BottomButton(label: '计算BMI', onTap: (){
+              CalculatorBrain calc = CalculatorBrain(height: height, weight: weight);
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultsPage(
+                bmiNumber: calc.calculateBMI(),
+                bmiResult: calc.getResult(),
+                bmiInterpretation: calc.getInterpretation(),
+              )));
+            },)
           ],
         ));
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-
-  final IconData icon;
-  final Function action;
-
-  RoundIconButton({@required this.icon, @required this.action});
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      elevation: 0.0,
-      child: Icon(icon),
-      onPressed: action,
-      constraints: BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0
-      ),
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
-    );
   }
 }

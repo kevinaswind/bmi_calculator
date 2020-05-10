@@ -15,3 +15,28 @@ const TextStyle kNumberTextStyle = TextStyle(
   fontSize: 50.0,
   fontWeight: FontWeight.w900,
 );
+
+const TextStyle kLargeButtonTextStyle = TextStyle(
+  fontSize: 25.0,
+  fontWeight: FontWeight.bold
+);
+
+const TextStyle kResultTitleTextStyle = TextStyle(
+    fontSize: 35.0,
+    fontWeight: FontWeight.bold
+);
+
+const TextStyle kResultCardTitleTextStyle = TextStyle(
+  fontSize: 22.0,
+  fontWeight: FontWeight.bold,
+  color: Color(0xFF24D876)
+);
+
+const TextStyle kResultCardNumberTextStyle = TextStyle(
+  fontSize: 100.0,
+  fontWeight: FontWeight.bold
+);
+
+const TextStyle kResultCardBodyTextStyle = TextStyle(
+    fontSize: 18.0,
+);
